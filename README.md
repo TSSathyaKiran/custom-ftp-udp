@@ -1,29 +1,6 @@
-# FTP using Sockets
-===========================
+## SSL Setup
 
-
-## Setup :
-
-- open the repository and add the file you want to transfer into the folder
-- change the **file_name** in _server.py_ to the name of the file you want to transfer
-- connect to the same wifi or ethernet
-- on the computer acting as the server (Sender), get the local ip address
-
-#### To get your local ip using terminal :
-
-- on Windows
+Generate certificates before running:
 
 ```bash
-    ipconfig 
-```
-
-- macOS or Linux
-
-```bash
-    ipconfig or ip a
-```
-#### 
-
-- change the **ADDR** on both _server.py_ and _client.py_, to the server's ip address
-- Run _server.py_ first
-- now run _client.py_
+openssl req -x509 -newkey rsa:2048 -keyout server.key -out server.crt -days 365 -nodes
