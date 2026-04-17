@@ -7,6 +7,8 @@ SERVER_IP = "192.168.0.118"
 TCP_PORT = 5003
 CHUNK_SIZE = 1024
 
+CERT = "server.crt"  # Server's certificate for verification
+
 
 def get_hash(filename):
     h = hashlib.sha256()
@@ -25,8 +27,10 @@ if os.path.exists(filename):
 
 
 context = ssl.create_default_context()
+context.load_verify_locations(CERT)   # Verify server against known cert
 context.check_hostname = False
-context.verify_mode = ssl.CERT_NONE
+context.verify_mode = ssl.CERT_REQUIRED   # FIXED: was CERT_NONE
+context.minimum_version = ssl.TLSVersion.TLSv1_2  # Enforce TLS 1.2+
 
 tcp_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 secure_sock = context.wrap_socket(tcp_sock)

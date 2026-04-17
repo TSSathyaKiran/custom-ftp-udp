@@ -85,6 +85,7 @@ def handle_client(conn, addr):
 
 context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 context.load_cert_chain(certfile=CERT, keyfile=KEY)
+context.minimum_version = ssl.TLSVersion.TLSv1_2  # Enforce TLS 1.2+
 
 tcp_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 tcp_sock.bind((SERVER_IP, TCP_PORT))
